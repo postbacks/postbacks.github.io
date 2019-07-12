@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Postback</title>
+</head>
+<body>
+    <span id="result"></span>
+</body>
+
+<script>
+    var params = window.location.toString().split('?')[1].split('&');
+
+    var sub_id_1 = params[0].split('=')[1];
+    var sub_id_2 = params[1].split('=')[1];
+    var sub_id_3 = params[2].split('=')[1];
+
+    var sub_id_4 = '';
+    var sub_id_5 = '';
+
+    if(params.length == 5)
+    {
+        sub_id_4 = params[3].split('=')[1];
+        sub_id_5 = params[4].split('=')[1];
+    }
+
+    var to = 'https://elizabetgerman.site/5f21230/postback?subid='+sub_id_1+'&status='+sub_id_2+'&extra_param_1='+sub_id_3;
+
+    if(params.length == 5) to += '&tid=' + sub_id_4 + '&sub_id_15=' + sub_id_5;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://cors-anywhere.herokuapp.com/'+to);
+    xhr.send();
+
+    var resultText = document.getElementById('result');
+
+    xhr.onload = function () {
+        if(xhr.status == 200) resultText.textContent = "ok";
+        else resultText.textContent = "error";
+    };
+</script>
+
+</html>
